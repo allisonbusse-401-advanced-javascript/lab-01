@@ -1,4 +1,5 @@
 const validator = require('../lib/validator.js');
+const errors = require('../lib/Errors');
 
 describe('validator module', () => {
   
@@ -179,10 +180,10 @@ describe('cast into string', () => {
     expect(validator.castString(date)).toBe(String(new Date()));
     expect(() => {
       validator.castString(array);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castString(obj);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
   });
 
   it('numbers', () => {
@@ -190,19 +191,19 @@ describe('cast into string', () => {
     expect(validator.castNumber(strNumber)).toBe(42);
     expect(() => {
       validator.castNumber(str);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castNumber(bool);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castNumber(array);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castNumber(date);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castNumber(obj);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
   });
 
   it('booleans', () => {
@@ -212,35 +213,57 @@ describe('cast into string', () => {
     expect(validator.castBool(strFalse)).toBe(false);
     expect(() => {
       validator.castBool(obj);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castBool(array);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castBool(str);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castBool(date);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
   });
 
   it('dates', () => {
     expect(validator.castDate(date)).toBe(String(date));
     expect(() => {
       validator.castDate(obj);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castDate(str);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castDate(number);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castDate(bool);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
     expect(() => {
       validator.castDate(array);
-    }).toThrow(validator.CannotCoerceError);
+    }).toThrow(errors.CannotCoerceError);
+  });
+
+});
+
+describe('get caster for', () => {
+
+  it('strings', () => {
+    expect(validator.getCaster('string')).toBe(validator.castString);
+  });
+  
+  it('numbers', () => {
+    expect(validator.getCaster('number')).toBe(validator.castNumber);
+  });
+
+  it('booleans', () => {
+    expect(validator.getCaster('boolean')).toBe(validator.castBool);
+
+  });
+
+  it('dates', () => {
+    expect(validator.getCaster('date')).toBe(validator.castDate);
+
   });
 
 });
