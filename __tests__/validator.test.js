@@ -167,6 +167,9 @@ describe('cast into string', () => {
   const array = [];
   const date = new Date();
   const strNumber = '42';
+  const numberOne = 1;
+  const strTrue = 'true';
+  const strFalse = 'false';
 
 
   it('strings', () => {
@@ -185,14 +188,39 @@ describe('cast into string', () => {
   it('numbers', () => {
     expect(validator.castNumber(number)).toBe(42);
     expect(validator.castNumber(strNumber)).toBe(42);
-    // expect(() => {
-    //   validator.castString(str);
-    // }).toThrow(validator.CannotCoerceError);
     expect(() => {
-      validator.castString(array);
+      validator.castNumber(str);
     }).toThrow(validator.CannotCoerceError);
     expect(() => {
-      validator.castString(obj);
+      validator.castNumber(bool);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castNumber(array);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castNumber(date);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castNumber(obj);
+    }).toThrow(validator.CannotCoerceError);
+  });
+
+  it('booleans', () => {
+    expect(validator.castBool(bool)).toBe(true);
+    expect(validator.castBool(numberOne)).toBe(true);
+    expect(validator.castBool(strTrue)).toBe(true);
+    expect(validator.castBool(strFalse)).toBe(false);
+    expect(() => {
+      validator.castBool(obj);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castBool(array);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castBool(str);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castBool(date);
     }).toThrow(validator.CannotCoerceError);
   });
 
