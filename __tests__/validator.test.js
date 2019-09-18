@@ -224,4 +224,23 @@ describe('cast into string', () => {
     }).toThrow(validator.CannotCoerceError);
   });
 
+  it('dates', () => {
+    expect(validator.castDate(date)).toBe(String(date));
+    expect(() => {
+      validator.castDate(obj);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castDate(str);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castDate(number);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castDate(bool);
+    }).toThrow(validator.CannotCoerceError);
+    expect(() => {
+      validator.castDate(array);
+    }).toThrow(validator.CannotCoerceError);
+  });
+
 });
