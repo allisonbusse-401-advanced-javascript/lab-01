@@ -14,7 +14,7 @@
 
 
 #### Documentation
-* [jsdoc](./docs)
+* [jsdoc](https://allisonbusse-401-advanced-javascript.github.io/lab-01/)
 
 
 #### Running the app
